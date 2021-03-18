@@ -39,7 +39,7 @@ def user_detail(request,article_pk):
     elif request.method == 'DELETE':  # 그룹 내 인원 삭제
         article = Usergroup.objects.filter(id=article_pk)
         article.delete()
-        return Response({'message': 'deleted successfully!'}, status=201)
+        return Response({'message': 'deleted successfully!'}, status=200)
 
 
 
@@ -49,7 +49,7 @@ def user_list(request):
         serializers = UserDetailSerializer(data=request.data)#그룹은 한글이름,영어이름,부서,직책,pin번호로 구성됨.
         if serializers.is_valid(raise_exception=True):
             serializers.save()
-            return Response(serializers.data, status=201)
+            return Response(serializers.data, status=200)
         # 에러처리 하기
         else:
             return JsonResponse(serializers.data, status=400)
@@ -77,7 +77,7 @@ def access_detail_v2(request,article_pk):
         if serializers.is_valid(raise_exception=True):
             serializers.save()
 
-            return Response(serializers.data,status=201)
+            return Response(serializers.data,status=200)
         #에러처리 하기
         else :
             return JsonResponse(serializers.data,status=400)
@@ -96,13 +96,13 @@ def access_detail_v2(request,article_pk):
         serializers = AccessListSerializer(article,data=data)
         if serializers.is_valid(raise_exception=True):
             serializers.save()
-            return Response(status=201)
+            return Response(status=200)
         else :
             return  JsonResponse(serializers.data,status=400)
     elif request.method == 'DELETE':
         article = Access.objects.filter(user_pk=article_pk)
         article.delete()
-        return Response({'message': 'deleted successfully!'},status=201)
+        return Response({'message': 'deleted successfully!'},status=200)
 
 @api_view(['GET'])
 def camera_on(request,article_pk):
@@ -114,7 +114,7 @@ def camera_on(request,article_pk):
         s.send(bytes(str(num), 'utf8'))
 
         s.close()
-        return Response({'message': 'camera on successfully!'}, status=201)
+        return Response({'message': 'camera on successfully!'}, status=200)
 # Create your views here.
 
 
